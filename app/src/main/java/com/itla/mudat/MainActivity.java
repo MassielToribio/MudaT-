@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-         // Toast.makeText(MainActivity.this,"HOLA: ".concat(txtnombre.getText().toString()), Toast.LENGTH_LONG).show();
+        // Toast.makeText(MainActivity.this,"HOLA: ".concat(txtnombre.getText().toString()), Toast.LENGTH_LONG).show();
 
                 Intent visualizar =new Intent(MainActivity.this,Visualizar.class);
                 Bundle parametros =new Bundle();

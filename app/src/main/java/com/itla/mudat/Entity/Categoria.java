@@ -6,6 +6,6 @@ package com.itla.mudat.Entity;
 
 public class Categoria {
     private int id;
-    private String nombre;
+    private String descripcion;
 
 }

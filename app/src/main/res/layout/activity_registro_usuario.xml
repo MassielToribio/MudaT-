@@ -126,6 +126,13 @@
                 android:layout_weight="1"
                 android:text="Guardar"
                 android:textColor="@color/colorPrimaryDark" />
+
+            <Button
+                android:id="@+id/buttonListar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Listar" />
         </LinearLayout>
 
     </LinearLayout>

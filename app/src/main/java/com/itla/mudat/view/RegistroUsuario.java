@@ -2,18 +2,22 @@ package com.itla.mudat.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.itla.mudat.Entity.TipoDeUsuario;
 import com.itla.mudat.Entity.Usuario;
 import com.itla.mudat.R;
+import com.itla.mudat.dao.UsuarioDbo;
+
+import java.util.List;
 
 public class RegistroUsuario extends AppCompatActivity {
 
 
+    private static final String LOG_T = "RegistroUsuario";
     private EditText txNombre;
     private EditText txTipoUsuario;
     private EditText txIdentificacion;
@@ -23,6 +27,9 @@ public class RegistroUsuario extends AppCompatActivity {
     private EditText txEstatus;
     private Button btGuardar;
     private Usuario usuario;
+    private Button btListar;
+
+    UsuarioDbo usuarioDbo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +45,17 @@ public class RegistroUsuario extends AppCompatActivity {
         txClave = (EditText) findViewById(R.id.editTextClave);
         txEstatus = (EditText) findViewById(R.id.editTextEstatus);
         btGuardar = (Button) findViewById(R.id.buttonGuardar);
+        btListar = (Button) findViewById(R.id.buttonListar);
 
         usuario = new Usuario();
+
+        usuarioDbo = new UsuarioDbo(getApplicationContext());
 
 
         btGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+       try {
 
                 usuario.setNombre(txNombre.getText().toString());
                 usuario.setIdentificacion(txIdentificacion.getText().toString());
@@ -54,7 +65,29 @@ public class RegistroUsuario extends AppCompatActivity {
                 usuario.setEmail(txEmail.getText().toString());
 
 
-                Toast.makeText(RegistroUsuario.this, usuario.toString(),Toast.LENGTH_LONG).show();
+              //  Toast.makeText(RegistroUsuario.this, usuario.toString(),Toast.LENGTH_LONG).show();
+                Log.i(LOG_T, "Registrando Usuario:" + usuario.toString());
+                usuarioDbo.crear(usuario);
+}catch (Exception e)
+       {
+           Toast.makeText(RegistroUsuario.this, e.getMessage(),Toast.LENGTH_LONG).show();
+       }
+            }
+        });
+
+        btListar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                usuarioDbo = new UsuarioDbo(getApplicationContext());
+                List<Usuario> listaUsuario = usuarioDbo.buscar();
+                for(Usuario usu:listaUsuario)
+                {
+                    Toast.makeText(RegistroUsuario.this, usuario.toString(),Toast.LENGTH_LONG).show();
+                }
+
+
+
             }
         });
 
