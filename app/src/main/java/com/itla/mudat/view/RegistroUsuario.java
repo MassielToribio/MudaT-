@@ -29,7 +29,9 @@ public class RegistroUsuario extends AppCompatActivity {
     private Usuario usuario;
     private Button btListar;
 
-    UsuarioDbo usuarioDbo;
+    private UsuarioDbo usuarioDbo;
+    //  Usuario usuario
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,31 +49,34 @@ public class RegistroUsuario extends AppCompatActivity {
         btGuardar = (Button) findViewById(R.id.buttonGuardar);
         btListar = (Button) findViewById(R.id.buttonListar);
 
-        usuario = new Usuario();
-
+        editarUsuario();
         usuarioDbo = new UsuarioDbo(getApplicationContext());
+
 
 
         btGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-       try {
+                try {
 
-                usuario.setNombre(txNombre.getText().toString());
-                usuario.setIdentificacion(txIdentificacion.getText().toString());
-                usuario.setClave(txClave.getText().toString());
-                usuario.setEstatus(true);
-                usuario.setTelefono(txTelefono.getText().toString());
-                usuario.setEmail(txEmail.getText().toString());
+                    if (usuario == null) {
+                        usuario = new Usuario();
+                    }
+
+                    usuario.setNombre(txNombre.getText().toString());
+                    usuario.setIdentificacion(txIdentificacion.getText().toString());
+                    usuario.setClave(txClave.getText().toString());
+                    usuario.setEstatus(true);
+                    usuario.setTelefono(txTelefono.getText().toString());
+                    usuario.setEmail(txEmail.getText().toString());
 
 
-              //  Toast.makeText(RegistroUsuario.this, usuario.toString(),Toast.LENGTH_LONG).show();
-                Log.i(LOG_T, "Registrando Usuario:" + usuario.toString());
-                usuarioDbo.crear(usuario);
-}catch (Exception e)
-       {
-           Toast.makeText(RegistroUsuario.this, e.getMessage(),Toast.LENGTH_LONG).show();
-       }
+                    //  Toast.makeText(RegistroUsuario.this, usuario.toString(),Toast.LENGTH_LONG).show();
+                    Log.i(LOG_T, "Registrando Usuario:" + usuario.toString());
+                    usuarioDbo.crear(usuario);
+                } catch (Exception e) {
+                    Toast.makeText(RegistroUsuario.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -81,16 +86,32 @@ public class RegistroUsuario extends AppCompatActivity {
 
                 usuarioDbo = new UsuarioDbo(getApplicationContext());
                 List<Usuario> listaUsuario = usuarioDbo.buscar();
-                for(Usuario usu:listaUsuario)
-                {
-                    Toast.makeText(RegistroUsuario.this, usuario.toString(),Toast.LENGTH_LONG).show();
+                for (Usuario usu : listaUsuario) {
+                    Toast.makeText(RegistroUsuario.this, usuario.toString(), Toast.LENGTH_LONG).show();
                 }
-
 
 
             }
         });
 
 
+
     }
+    private void editarUsuario() {
+        Bundle parametros = getIntent().getExtras();
+
+        if (parametros != null && parametros.getSerializable("usuario") != null) {
+            usuario = (Usuario) parametros.getSerializable("usuario");
+
+            usuario.setNombre(txNombre.getText().toString());
+            usuario.setIdentificacion(txIdentificacion.getText().toString());
+            usuario.setClave(txClave.getText().toString());
+            usuario.setEstatus(true);
+            usuario.setTelefono(txTelefono.getText().toString());
+            usuario.setEmail(txEmail.getText().toString());
+
+        }
+    }
+
 }
+

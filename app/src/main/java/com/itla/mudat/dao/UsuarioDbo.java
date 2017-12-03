@@ -37,6 +37,22 @@ public class UsuarioDbo {
         db.insert("usuario", null, cv);
         db.close();
     }
+
+    public void actualizar (Usuario usuario){
+
+        SQLiteDatabase db = con.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("nombre",usuario.getNombre());
+        cv.put("tipoUsuario", String.valueOf(usuario.getTipoUsuario()));
+        cv.put("identificacion", usuario.getIdentificacion());
+        cv.put("telefono", usuario.getTelefono());
+        cv.put("email", usuario.getEmail());
+        cv.put("clave", usuario.getClave());
+        cv.put("estatus", usuario.getEstatus());
+
+        db.update("usuario", cv, "id=?", new String[] {" " +  usuario.getId()} );
+        db.endTransaction();
+    }
     public List<Usuario> buscar(){
         List<Usuario> usuarios = new ArrayList<>();
 

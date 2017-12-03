@@ -17,8 +17,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".Visualizar" />
-        <activity android:name=".view.RegistroUsuario"
-            android:label="@string/RegistroUsuario"></activity>
+        <activity
+            android:name=".view.RegistroUsuario"
+            android:label="@string/RegistroUsuario" />
+        <activity android:name=".Usuarios"></activity>
     </application>
 
 </manifest>

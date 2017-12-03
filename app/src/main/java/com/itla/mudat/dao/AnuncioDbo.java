@@ -53,9 +53,9 @@ public class AnuncioDbo {
         while (!cursor.isAfterLast()){
             Anuncio a = new Anuncio();
             a.setId(cursor.getInt(cursor.getColumnIndex("id")));
-            a.setFecha(cursor.getString(cursor.getColumnIndex("fecha")));
+           // a.setFecha(cursor.getString(cursor.getColumnIndex("fecha")));
             a.setCondicion(cursor.getString(cursor.getColumnIndex("condicion")));
-            a.setPrecio(cursor.getString(cursor.getColumnIndex("precio")));
+           // a.setPrecio(cursor.getString(cursor.getColumnIndex("precio")));
             a.setTitulo(cursor.getString(cursor.getColumnIndex("titulo")));
             a.setUbicacion(cursor.getString(cursor.getColumnIndex("ubicacion")));
             a.setDetalle(cursor.getString(cursor.getColumnIndex("detalle")));

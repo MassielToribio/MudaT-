@@ -8,34 +8,28 @@
     android:orientation="vertical"
     tools:context="com.itla.mudat.MainActivity">
 
-    <EditText
-        android:id="@+id/txtNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="text"
-        android:labelFor="@id/btnMostrar"
-        android:textColorLink="@color/colorPrimaryDark"
-        tools:layout_editor_absoluteX="95dp"
-        tools:layout_editor_absoluteY="31dp" />
-
     <Button
-        android:id="@+id/btnMostrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="Mostrar"
-        android:textColor="@color/colorAccent"
-        tools:layout_editor_absoluteX="147dp"
-        tools:layout_editor_absoluteY="90dp" />
-
-    <Button
-        android:id="@+id/buttonRegistroUsuario"
+        android:id="@+id/buttonUsuarios"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registro de Usuario" />
+        android:text="Usuarios"
+        android:textStyle="bold"
+        tools:textColor="?attr/actionModeSplitBackground" />
+
+    <Button
+        android:id="@+id/buttonAnuncios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Anuncios"
+        android:textStyle="bold"
+        tools:textColor="?attr/actionModeSplitBackground" />
+
+    <Button
+        android:id="@+id/buttonCategoria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Categoria"
+        android:textColor="?attr/actionModeSplitBackground"
+        android:textStyle="bold" />
 
 </LinearLayout>
