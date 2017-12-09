@@ -47,6 +47,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnAnuncios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent anuncio = new Intent(MainActivity.this, Anuncios.class);
+
+                startActivity(anuncio);
+            }
+        });
+
      //   btnmostrar.setOnClickListener(new View.OnClickListener() {
           //  @Override
          //   public void onClick(View v) {

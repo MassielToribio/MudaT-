@@ -20,7 +20,9 @@
         <activity
             android:name=".view.RegistroUsuario"
             android:label="@string/RegistroUsuario" />
-        <activity android:name=".Usuarios"></activity>
+        <activity android:name=".Usuarios" />
+        <activity android:name=".Anuncios" />
+        <activity android:name=".AgregarAnuncio" />
     </application>
 
 </manifest>

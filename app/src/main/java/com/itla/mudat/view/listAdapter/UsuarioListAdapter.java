@@ -28,6 +28,7 @@ public class UsuarioListAdapter extends BaseAdapter {
         this.context = context;
     }
 
+
     @Override
     public int getCount() {
         return usuarios.size();

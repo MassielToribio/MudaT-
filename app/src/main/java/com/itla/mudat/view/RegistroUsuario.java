@@ -1,5 +1,6 @@
 package com.itla.mudat.view;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import com.itla.mudat.Entity.Usuario;
 import com.itla.mudat.R;
 import com.itla.mudat.dao.UsuarioDbo;
+import com.itla.mudat.view.listAdapter.UsuarioListAdapter;
 
 import java.util.List;
 
@@ -26,11 +28,10 @@ public class RegistroUsuario extends AppCompatActivity {
     private EditText txClave;
     private EditText txEstatus;
     private Button btGuardar;
-    private Usuario usuario;
     private Button btListar;
 
     private UsuarioDbo usuarioDbo;
-    //  Usuario usuario
+      Usuario usuario;
 
 
     @Override
@@ -38,6 +39,7 @@ public class RegistroUsuario extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_usuario);
 
+         usuario = new Usuario();
 
         txNombre = (EditText) findViewById(R.id.editTextNombre);
         txTipoUsuario = (EditText) findViewById(R.id.editTextTipoUsuario);
@@ -49,8 +51,10 @@ public class RegistroUsuario extends AppCompatActivity {
         btGuardar = (Button) findViewById(R.id.buttonGuardar);
         btListar = (Button) findViewById(R.id.buttonListar);
 
+
         editarUsuario();
-        usuarioDbo = new UsuarioDbo(getApplicationContext());
+        usuarioDbo = new UsuarioDbo(this);
+
 
 
 
@@ -59,21 +63,22 @@ public class RegistroUsuario extends AppCompatActivity {
             public void onClick(View view) {
                 try {
 
-                    if (usuario == null) {
-                        usuario = new Usuario();
-                    }
+                        usuario.setNombre(txNombre.getText().toString());
+                        usuario.setIdentificacion(txIdentificacion.getText().toString());
+                        usuario.setClave(txClave.getText().toString());
+                        usuario.setEstatus(true);
+                        usuario.setTelefono(txTelefono.getText().toString());
+                        usuario.setEmail(txEmail.getText().toString());
 
-                    usuario.setNombre(txNombre.getText().toString());
-                    usuario.setIdentificacion(txIdentificacion.getText().toString());
-                    usuario.setClave(txClave.getText().toString());
-                    usuario.setEstatus(true);
-                    usuario.setTelefono(txTelefono.getText().toString());
-                    usuario.setEmail(txEmail.getText().toString());
+                        Log.i(LOG_T, "Registrando Usuario:" + usuario.toString());
+
+                        if (usuario.getId() <=0) {
+                            usuarioDbo.crear(usuario);
+                        }else{
+                            usuarioDbo.actualizar(usuario);
+                        }
 
 
-                    //  Toast.makeText(RegistroUsuario.this, usuario.toString(),Toast.LENGTH_LONG).show();
-                    Log.i(LOG_T, "Registrando Usuario:" + usuario.toString());
-                    usuarioDbo.crear(usuario);
                 } catch (Exception e) {
                     Toast.makeText(RegistroUsuario.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
@@ -88,6 +93,9 @@ public class RegistroUsuario extends AppCompatActivity {
                 List<Usuario> listaUsuario = usuarioDbo.buscar();
                 for (Usuario usu : listaUsuario) {
                     Toast.makeText(RegistroUsuario.this, usuario.toString(), Toast.LENGTH_LONG).show();
+
+
+
                 }
 
 
@@ -97,18 +105,20 @@ public class RegistroUsuario extends AppCompatActivity {
 
 
     }
+
+
     private void editarUsuario() {
         Bundle parametros = getIntent().getExtras();
 
         if (parametros != null && parametros.getSerializable("usuario") != null) {
             usuario = (Usuario) parametros.getSerializable("usuario");
 
-            usuario.setNombre(txNombre.getText().toString());
-            usuario.setIdentificacion(txIdentificacion.getText().toString());
-            usuario.setClave(txClave.getText().toString());
-            usuario.setEstatus(true);
-            usuario.setTelefono(txTelefono.getText().toString());
-            usuario.setEmail(txEmail.getText().toString());
+            txNombre.setText(usuario.getNombre());
+            txIdentificacion.setText(usuario.getIdentificacion());
+            txEmail.setText(usuario.getEmail());
+            txTelefono.setText(usuario.getTelefono());
+            txClave.setText(usuario.getClave());
+
 
         }
     }

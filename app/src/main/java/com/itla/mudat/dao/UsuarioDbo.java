@@ -43,7 +43,7 @@ public class UsuarioDbo {
         SQLiteDatabase db = con.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("nombre",usuario.getNombre());
-        cv.put("tipoUsuario", String.valueOf(usuario.getTipoUsuario()));
+      //  cv.put("tipoUsuario", String.valueOf(usuario.getTipoUsuario()));
         cv.put("identificacion", usuario.getIdentificacion());
         cv.put("telefono", usuario.getTelefono());
         cv.put("email", usuario.getEmail());
@@ -51,7 +51,8 @@ public class UsuarioDbo {
         cv.put("estatus", usuario.getEstatus());
 
         db.update("usuario", cv, "id=?", new String[] {" " +  usuario.getId()} );
-        db.endTransaction();
+       // db.endTransaction();
+        db.close();
     }
     public List<Usuario> buscar(){
         List<Usuario> usuarios = new ArrayList<>();
