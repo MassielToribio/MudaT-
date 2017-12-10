@@ -1,5 +1,7 @@
 package com.itla.mudat.Entity;
 
+import java.util.Date;
+
 /**
  * Created by Usuario on 11/18/2017.
  */
@@ -7,9 +9,9 @@ package com.itla.mudat.Entity;
 public class Anuncio {
 
     private int id;
-    private String categoria;
-    private String usuario;
-    private String fecha;
+    private int categoria;
+    private int usuario;
+    private Date fecha;
     private String condicion;
     private String precio;
     private String titulo;
@@ -24,27 +26,27 @@ public class Anuncio {
         this.id = id;
     }
 
-    public String getCategoria() {
+    public int getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(int categoria) {
         this.categoria = categoria;
     }
 
-    public String getUsuario() {
+    public int getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(String usuario) {
+    public void setUsuario(int usuario) {
         this.usuario = usuario;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 

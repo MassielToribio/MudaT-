@@ -4,33 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.itla.mudat.Anuncios">
 
-    <Button
-        android:id="@+id/buttonMisAnuncios"
-        android:layout_width="194dp"
-        android:layout_height="37dp"
-        android:text="Mis Anuncios"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="2dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/buttonAgregarAnuncio"
-        android:layout_width="wrap_content"
-        android:layout_height="37dp"
-        android:gravity="center"
-        android:text="Agregar Anuncio"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="2dp" />
+        <Button
+            android:id="@+id/buttonAgregarAnuncio"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Agregar Anuncio"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="2dp" />
+
+        <Button
+            android:id="@+id/buttonMisAnuncios"
+            android:layout_width="194dp"
+            android:layout_height="37dp"
+            android:layout_weight="1"
+            android:text="Mis Anuncios"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="2dp" />
+    </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <ListView
             android:id="@+id/listaAnuncio"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
 
