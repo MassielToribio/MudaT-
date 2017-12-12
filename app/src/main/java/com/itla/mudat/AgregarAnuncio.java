@@ -41,63 +41,83 @@ public class AgregarAnuncio extends AppCompatActivity {
     private AnuncioDbo anuncioDbo;
     private Spinner spinnercategoria;
     Anuncio anuncio;
-   public  Map elegido ;
+    public Map elegido;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_anuncio);
 
-        anuncio = new Anuncio();
-;
-        // txCategoria = (EditText) findViewById(R.id.editTextCategoria);
-        // txUsuario = (EditText) findViewById(R.id.editTextUsuario);
-        //  txFecha = (EditText) findViewById(R.id.editTextFecha);
-        txCondicion = (EditText) findViewById(R.id.editTextCondicion);
-        txPrecio = (EditText) findViewById(R.id.editTextPrecio);
-        txTitulo = (EditText) findViewById(R.id.editTextTitulo);
-        txUbicacion = (EditText) findViewById(R.id.editTextUbicacion);
-        txDetalle = (EditText) findViewById(R.id.editTextDetalle);
-        btnGuardar = (Button) findViewById(R.id.buttonGuardarAnuncio);
-       spinnercategoria=(Spinner) findViewById(R.id.idspinnercategoria);
-        llenarspinnercategoria();
-        anuncioDbo = new AnuncioDbo(this);
+        try {
 
-        btnGuardar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    anuncio.setCategoria((Integer) elegido.get("id"));
-                    anuncio.setUsuario(1);
-                    Date date = new Date();
-                    anuncio.setFecha(date);
-                    anuncio.setCondicion(txCondicion.getText().toString());
-                    anuncio.setPrecio(txPrecio.getText().toString());
-                    anuncio.setTitulo(txTitulo.getText().toString());
-                    anuncio.setUbicacion(txUbicacion.getText().toString());
-                    anuncio.setDetalle(txDetalle.getText().toString());
-                    anuncioDbo.crear(anuncio);
-                    Log.i(LOG_T, "Agregando Anuncio" + anuncio.toString());
-                } catch (Exception e) {
-                    Toast.makeText(AgregarAnuncio.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            anuncio = new Anuncio();
+            ;
+            // txCategoria = (EditText) findViewById(R.id.editTextCategoria);
+            // txUsuario = (EditText) findViewById(R.id.editTextUsuario);
+            //  txFecha = (EditText) findViewById(R.id.editTextFecha);
+            txCondicion = (EditText) findViewById(R.id.editTextCondicion);
+            txPrecio = (EditText) findViewById(R.id.editTextPrecio);
+            txTitulo = (EditText) findViewById(R.id.editTextTitulo);
+            txUbicacion = (EditText) findViewById(R.id.editTextUbicacion);
+            txDetalle = (EditText) findViewById(R.id.editTextDetalle);
+            btnGuardar = (Button) findViewById(R.id.buttonGuardarAnuncio);
+            spinnercategoria = (Spinner) findViewById(R.id.idspinnercategoria);
+            llenarspinnercategoria();
+            anuncioDbo = new AnuncioDbo(this);
+
+            btnGuardar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+
+                        if (elegido != null)
+                            anuncio.setCategoria((Integer) elegido.get("id"));
+
+                        else
+                            anuncio.setCategoria(1);
+
+                        anuncio.setUsuario(1);
+                        Date date = new Date();
+                        anuncio.setFecha(date);
+                        anuncio.setCondicion(txCondicion.getText().toString());
+                        anuncio.setPrecio(txPrecio.getText().toString());
+                        anuncio.setTitulo(txTitulo.getText().toString());
+                        anuncio.setUbicacion(txUbicacion.getText().toString());
+                        anuncio.setDetalle(txDetalle.getText().toString());
+                        anuncioDbo.crear(anuncio);
+                        Log.i(LOG_T, "Agregando Anuncio" + anuncio.toString());
+                    } catch (Exception e) {
+                        Toast.makeText(AgregarAnuncio.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });
 
-    spinnercategoria.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            try
-            {
-                if(adapterView !=null)
-                elegido=(Map) adapterView.getItemAtPosition(i);
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
+            spinnercategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    try {
+                        elegido = (Map) parent.getItemAtPosition(position);
+                        if (elegido != null) {
+                        }
+
+                    } catch (Exception e) {
+
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        } catch (
+                Exception e)
+
+        {
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
-    });
     }
+
 
 
     private void llenarspinnercategoria() {

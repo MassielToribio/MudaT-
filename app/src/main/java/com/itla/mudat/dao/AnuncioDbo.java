@@ -53,7 +53,7 @@ public class AnuncioDbo {
         //Cursor cursor = db.query("anuncio", columnas, null, null, null, null, null );
 
         //Cursor cursor = db.rawQuery("SELECT a.*, u.nombre, c.descripcion FROM anuncio a, usuario u, categoria c WHERE a.idUsuario= u.id AND a.idCategoria= c.id",null);
-        Cursor cursor = db.rawQuery("SELECT a.*,ifnull((SELECT nombre from usuario where id=a.id),'') nombre,ifnull((select descripcion from categoria where id=a.id),'') descripcion FROM anuncio a",null);
+        Cursor cursor = db.rawQuery("SELECT a.*,ifnull((SELECT usuario.nombre from usuario where usuario.id=a.idUsuario),'') nombre,ifnull((select categoria.descripcion from categoria where categoria.id=a.idCategoria),'') descripcion FROM anuncio a",null);
         //SELECT a.*,ifnull((SELECT nombre from usuario where id=a.id),'') nombre,ifnull((select descripcion from categoria where id=a.id),'') descripcion FROM anuncio a
         cursor.moveToFirst();
 
@@ -64,6 +64,7 @@ public class AnuncioDbo {
 
             usuario.setId(cursor.getInt(cursor.getColumnIndex("idUsuario")));
             usuario.setNombre(cursor.getString(cursor.getColumnIndex("nombre")));
+            categoria.setDescripcion(cursor.getString(cursor.getColumnIndex("descripcion")));
 
             anuncio.setUsuario(cursor.getInt(cursor.getColumnIndex("idUsuario")));
             anuncio.setId(cursor.getInt(cursor.getColumnIndex("id")));

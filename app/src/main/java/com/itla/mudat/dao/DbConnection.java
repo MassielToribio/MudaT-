@@ -39,6 +39,7 @@ public class DbConnection extends SQLiteOpenHelper {
             sd.execSQL("insert or replace into Categoria (id,descripcion) values(1,'Apartamento');");
             sd.execSQL("insert or replace into Categoria (id,descripcion) values(2,'Casa');");
             sd.execSQL("insert or replace into Categoria (id,descripcion) values(3,'PenHouse');");
+            sd.execSQL("INSERT or replace INTO Usuario (id,nombre,tipoUsuario,identificacion,email,telefono,clave,estatus) values(1,'massiel',1,'40221112085','Massiel@gmail.com','809-873-9895','1234',1);");
 
 
         }catch (Exception e)
