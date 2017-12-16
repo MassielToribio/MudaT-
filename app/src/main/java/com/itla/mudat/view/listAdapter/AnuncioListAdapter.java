@@ -53,6 +53,8 @@ public class AnuncioListAdapter extends BaseAdapter {
         TextView listaAnuncioDetalle = view.findViewById(R.id.listaAnuncioDetalle);
         TextView listaAnuncioPrecio = view.findViewById(R.id.listaAnuncioPrecio);
         TextView listaAnuncioUbicacion = view.findViewById(R.id.listaAnuncioUbicacion);
+        TextView listaAnuncioCategoria = view.findViewById(R.id.listaIdCategoria);
+        listaAnuncioCategoria.setVisibility(View.GONE );
 
         Anuncio a = anuncios.get(i);
 
@@ -60,6 +62,8 @@ public class AnuncioListAdapter extends BaseAdapter {
         listaAnuncioDetalle.setText(a.getDetalle());
         listaAnuncioPrecio.setText(a.getPrecio());
         listaAnuncioUbicacion.setText(a.getUbicacion());
+
+            listaAnuncioCategoria.setText(String.valueOf( a.getCategoria()));
 
         return view;
     }

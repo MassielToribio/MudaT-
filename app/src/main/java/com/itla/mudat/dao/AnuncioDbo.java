@@ -43,12 +43,30 @@ public class AnuncioDbo {
         db.close();
     }
 
+    public void actualizar (Anuncio anuncio){
+
+        SQLiteDatabase db = connection.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("fecha", DF.format(anuncio.getFecha()));
+        cv.put("condicion", anuncio.getCondicion());
+        cv.put("precio", anuncio.getPrecio());
+        cv.put("titulo", anuncio.getTitulo());
+        cv.put("ubicacion", anuncio.getUbicacion());
+        cv.put("detalle", anuncio.getDetalle());
+        cv.put("idCategoria", String.valueOf(anuncio.getCategoria()));
+        cv.put("idUsuario", String.valueOf(anuncio.getUsuario()));
+
+        db.update("anuncio", cv, "id=?", new String[]{" " +  anuncio.getId()});
+        db.close();
+    }
+
     public List<Anuncio> buscar(){
         List<Anuncio> anuncios = new ArrayList<>();
 
         SQLiteDatabase db = connection.getWritableDatabase();
 
-        String columnas[] = new String[]{"id", "fecha", "condicion", "precio", "titulo", "ubicacion", "detalle" };
+        String columnas[] = new String[]{"id", "fecha", "condicion", "precio", "idCategoria","titulo", "ubicacion", "detalle" };
 
         //Cursor cursor = db.query("anuncio", columnas, null, null, null, null, null );
 
@@ -66,6 +84,7 @@ public class AnuncioDbo {
             usuario.setNombre(cursor.getString(cursor.getColumnIndex("nombre")));
             categoria.setDescripcion(cursor.getString(cursor.getColumnIndex("descripcion")));
 
+            anuncio.setCategoria(cursor.getInt(cursor.getColumnIndex("idCategoria")));
             anuncio.setUsuario(cursor.getInt(cursor.getColumnIndex("idUsuario")));
             anuncio.setId(cursor.getInt(cursor.getColumnIndex("id")));
            // a.setFecha(cursor.getString(cursor.getColumnIndex("fecha")));

@@ -1,6 +1,7 @@
 package com.itla.mudat;
 
 import android.content.Intent;
+import android.hardware.fingerprint.FingerprintManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.itla.mudat.Entity.Anuncio;
 import com.itla.mudat.Entity.Usuario;
@@ -23,7 +25,7 @@ public class Anuncios extends AppCompatActivity {
 
     private Button btnMisAnuncios;
     private Button btnAgregarAnuncio;
-
+    ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +34,7 @@ public class Anuncios extends AppCompatActivity {
 
         btnMisAnuncios= (Button) findViewById(R.id.buttonMisAnuncios);
         btnAgregarAnuncio = (Button) findViewById(R.id.buttonAgregarAnuncio);
-
+        listView =(ListView) findViewById(R.id.listaAnuncio);
         btnAgregarAnuncio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,24 +46,28 @@ public class Anuncios extends AppCompatActivity {
         });
 
         AnuncioDbo anuncioDbo =new AnuncioDbo(this);
+try {
+    List<Anuncio> anuncios = anuncioDbo.buscar();
+    Log.i("anuncios", "Cantidad de anuncios:" + anuncios.size());
 
-        List<Anuncio> anuncios= anuncioDbo.buscar();
-        Log.i("anuncios", "Cantidad de anuncios:" + anuncios.size());
 
-        ListView listView = findViewById(R.id.listaAnuncio);
-        listView.setAdapter(new AnuncioListAdapter(anuncios, this));
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    listView.setAdapter(new AnuncioListAdapter(anuncios, this));
+  listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 Intent rAnuncios= new Intent(Anuncios.this, AgregarAnuncio.class );
-//                Usuario u = (Usuario) adapterView.getItemAtPosition(i);
+                Anuncio a = (Anuncio) adapterView.getItemAtPosition(i);
 //
-//                rUsuario.putExtra("usuario", u);
-//                startActivity(rUsuario);
+                rAnuncios.putExtra("anuncio", a);
+                startActivity(rAnuncios);
             }
         });
+} catch (Exception e)
+{
+    Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+}
+
 
     }
 }

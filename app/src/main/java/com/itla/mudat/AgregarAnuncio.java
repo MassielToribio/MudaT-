@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.itla.mudat.Entity.Anuncio;
 import com.itla.mudat.Entity.Categoria;
+import com.itla.mudat.Entity.Usuario;
 import com.itla.mudat.dao.AnuncioDbo;
 import com.itla.mudat.dao.CategoriaDbo;
 
@@ -41,6 +42,7 @@ public class AgregarAnuncio extends AppCompatActivity {
     private AnuncioDbo anuncioDbo;
     private Spinner spinnercategoria;
     Anuncio anuncio;
+    List<Map<String,String>> listacategorias;
     public Map elegido;
 
     @Override
@@ -62,7 +64,10 @@ public class AgregarAnuncio extends AppCompatActivity {
             txDetalle = (EditText) findViewById(R.id.editTextDetalle);
             btnGuardar = (Button) findViewById(R.id.buttonGuardarAnuncio);
             spinnercategoria = (Spinner) findViewById(R.id.idspinnercategoria);
+
+
             llenarspinnercategoria();
+            editarAnuncio();
             anuncioDbo = new AnuncioDbo(this);
 
             btnGuardar.setOnClickListener(new View.OnClickListener() {
@@ -70,12 +75,12 @@ public class AgregarAnuncio extends AppCompatActivity {
                 public void onClick(View view) {
                     try {
 
-                        if (elegido != null)
+                        if (elegido != null) {
                             anuncio.setCategoria((Integer) elegido.get("id"));
-
-                        else
+                        }
+                        else {
                             anuncio.setCategoria(1);
-
+                        }
                         anuncio.setUsuario(1);
                         Date date = new Date();
                         anuncio.setFecha(date);
@@ -84,8 +89,14 @@ public class AgregarAnuncio extends AppCompatActivity {
                         anuncio.setTitulo(txTitulo.getText().toString());
                         anuncio.setUbicacion(txUbicacion.getText().toString());
                         anuncio.setDetalle(txDetalle.getText().toString());
-                        anuncioDbo.crear(anuncio);
+
                         Log.i(LOG_T, "Agregando Anuncio" + anuncio.toString());
+
+                        if (anuncio.getId() <=0) {
+                            anuncioDbo.crear(anuncio);
+                        }else{
+                            anuncioDbo.actualizar(anuncio);
+                        }
                     } catch (Exception e) {
                         Toast.makeText(AgregarAnuncio.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -124,7 +135,7 @@ public class AgregarAnuncio extends AppCompatActivity {
         try {
      categoriaDbo=new CategoriaDbo(getApplicationContext());
 
-            List<Map<String,String>> listacategorias =new ArrayList<Map<String,String>>();
+           listacategorias =new ArrayList<Map<String,String>>();
             listacategorias=categoriaDbo.Llenarspinner();
             if(listacategorias.size()>0 )
             {
@@ -137,6 +148,42 @@ public class AgregarAnuncio extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"No hay Categorias Registradas.",Toast.LENGTH_LONG).show();
             }
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void editarAnuncio() {
+        Bundle parametros = getIntent().getExtras();
+
+        if (parametros != null && parametros.getSerializable("anuncio") != null) {
+            anuncio = (Anuncio) parametros.getSerializable("anuncio");
+
+            txCondicion.setText(anuncio.getCondicion());
+            txPrecio.setText(anuncio.getPrecio());
+            txTitulo.setText(anuncio.getTitulo());
+            txUbicacion.setText(anuncio.getUbicacion());
+            txDetalle.setText(anuncio.getDetalle());
+
+            SeleccionarSpinner(listacategorias,String.valueOf( anuncio.getCategoria()));
+
+        }
+    }
+
+    private void SeleccionarSpinner(List<Map<String,String>> spinner, String codigo){
+        try {
+             Integer valor;
+             String cod;
+             for (valor=0; valor<spinner.size(); valor++)
+             {
+                 Map<String, String> mapeo= spinner.get(valor);
+                 cod=String.valueOf( mapeo.get("id"));
+                 if (cod.equals(codigo)){
+                    spinnercategoria.setSelection(valor);
+                    break;
+                 }
+             }
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
     }

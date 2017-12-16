@@ -59,7 +59,7 @@ public class UsuarioDbo {
 
         SQLiteDatabase db = con.getWritableDatabase();
 
-        String columnas[] = new String[]{"id", "nombre", "email", "identificacion", "telefono" };
+        String columnas[] = new String[]{"id", "nombre", "email", "identificacion", "telefono", "clave" };
 
         Cursor cursor = db.query("usuario", columnas, null, null, null, null, null );
 
@@ -73,6 +73,7 @@ public class UsuarioDbo {
             u.setEmail(cursor.getString(cursor.getColumnIndex("email")));
             u.setIdentificacion(cursor.getString(cursor.getColumnIndex("identificacion")));
             u.setTelefono(cursor.getString(cursor.getColumnIndex("telefono")));
+            u.setClave(cursor.getString(cursor.getColumnIndex("clave")));
 
             cursor.moveToNext();
             usuarios.add(u);
