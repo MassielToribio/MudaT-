@@ -62,8 +62,7 @@ public class AnuncioListAdapter extends BaseAdapter {
         listaAnuncioDetalle.setText(a.getDetalle());
         listaAnuncioPrecio.setText(a.getPrecio());
         listaAnuncioUbicacion.setText(a.getUbicacion());
-
-            listaAnuncioCategoria.setText(String.valueOf( a.getCategoria()));
+        listaAnuncioCategoria.setText(String.valueOf( a.getCategoria()));
 
         return view;
     }

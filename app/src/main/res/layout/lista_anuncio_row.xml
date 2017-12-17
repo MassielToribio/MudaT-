@@ -22,9 +22,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
+                android:background="@mipmap/ic_launcher"
                 android:cropToPadding="true"
-                android:scaleType="fitCenter"
-                app:srcCompat="@mipmap/ic_launcher_foreground" />
+                android:scaleType="fitCenter" />
         </LinearLayout>
 
         <TextView
